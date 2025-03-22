@@ -1,6 +1,7 @@
 import os
 import time
 import sqlite3
+import yaml
 
 def setup_database():
     conn = sqlite3.connect("security_events.db")
@@ -18,13 +19,20 @@ def log_event(event):
     conn.commit()
     conn.close()
 
+def load_config():
+    with open("config.yaml", "r") as f:
+        return yaml.safe_load(f)
+
 def monitor_events():
     setup_database()
+    config = load_config()
+    monitored_types = config["monitored_events"]
     print("Starting event monitoring...")
     while True:
         event = {"time": time.ctime(), "type": "file_access", "details": "/etc/passwd"}
-        log_event(event)
-        print(f"Logged: {event}")
+        if event["type"] in monitored_types:
+            log_event(event)
+            print(f"Logged: {event}")
         time.sleep(2)
 
 if __name__ == "__main__":
