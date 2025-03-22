@@ -1,0 +1,3 @@
+monitored_events:
+  - file_access
+  - login_attempt
