@@ -36,3 +36,6 @@ The Real-Time OS Security Event Logger captures OS-level security events (simula
    ```bash
    git clone <your-repo-url>
    cd os-security-logger
+
+   ## Demo Website
+View the project overview online: [Live Demo](https://yourusername.github.io/os-security-logger/)
